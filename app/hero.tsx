@@ -13,7 +13,7 @@ const Hero = () => {
         <p className="text-lg mt-10">Welcome to Your Ultimate Event Hub: Where Organizers Craft Unforgettable Experiences and Attendees Discover Thrilling Moments, All in One Dynamic Platform!</p>
 
         <div className="mt-10 space-x-4">
-          <Link href={"/account"}>
+          <Link href={"/signup"}>
             <Button className='rounded-3xl dark:text-white'>Create account</Button>
           </Link>
           <Link href={"/events"}>
