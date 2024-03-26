@@ -17,7 +17,7 @@ const Header = () => {
           </div>
           <div className="flex items-end space-x-4">
             <ModeToggle />
-            <Button className='dark:text-white rounded-2xl'>Join us</Button>
+            {/* <Button className='dark:text-white rounded-2xl'>Join us</Button> */}
           </div>
         </div>
       </Container>
