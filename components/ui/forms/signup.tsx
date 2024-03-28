@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/select"
 import axios, { AxiosError } from "axios";
 import { BackendAPI } from "@/lib/constants"
+import { returnAxiosError } from "@/lib/Error"
 
 const SignUpForm = () => {
   const router = useRouter();
@@ -35,26 +36,7 @@ const SignUpForm = () => {
       })
       router.push("/signin");
     } catch (error) {
-      if (error instanceof AxiosError) {
-        if (!error.response) {
-          toast({
-            title: "Internet Connection Problem",
-            description: "Try again later after fixing the problem",
-            variant: "destructive"
-          });
-        } else {
-          if(error.response.data.errors) {
-            toast({
-              title: error.response.data.message,
-              description: error.response.data.errors.join("\n \n"),
-            })
-          } else {
-            toast({
-              title: error.response.data.message,
-            })
-          }
-        }
-      }
+      returnAxiosError(error);
     }
   }
 
