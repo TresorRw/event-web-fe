@@ -1,5 +1,6 @@
 "use client"
 
+import { useToast } from "@/components/ui/use-toast"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, FormProvider } from "react-hook-form"
 import { FormField, FormItem, FormLabel, FormControl } from "../form"
@@ -7,6 +8,7 @@ import { Input } from "../input"
 import { Button } from "../button"
 import { SignupSchema } from "@/schemas/user.schema";
 import { z } from "zod"
+import { useRouter } from "next/navigation";
 import {
   Select,
   SelectContent,
@@ -14,15 +16,46 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import axios, { AxiosError } from "axios";
+import { BackendAPI } from "@/lib/constants"
 
 const SignUpForm = () => {
+  const router = useRouter();
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof SignupSchema>>({
     resolver: zodResolver(SignupSchema),
-
   })
 
-  const onSubmit = (values: z.infer<typeof SignupSchema>) => {
-    console.log(values)
+  const onSubmit = async (values: z.infer<typeof SignupSchema>) => {
+    try {
+      const response = await axios.post(BackendAPI + "/api/auth/signup", values);
+      toast({
+        title: "Account Created",
+        description: response.data.message,
+      })
+      router.push("/signin");
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (!error.response) {
+          toast({
+            title: "Internet Connection Problem",
+            description: "Try again later after fixing the problem",
+            variant: "destructive"
+          });
+        } else {
+          if(error.response.data.errors) {
+            toast({
+              title: error.response.data.message,
+              description: error.response.data.errors.join("\n \n"),
+            })
+          } else {
+            toast({
+              title: error.response.data.message,
+            })
+          }
+        }
+      }
+    }
   }
 
   return (
@@ -79,7 +112,7 @@ const SignUpForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="Your secret" {...field} />
+                <Input type="password" placeholder="Your secret" {...field} />
               </FormControl>
             </FormItem>
           )}
@@ -91,4 +124,3 @@ const SignUpForm = () => {
 }
 
 export default SignUpForm
-
