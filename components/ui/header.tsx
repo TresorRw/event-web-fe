@@ -1,11 +1,11 @@
 'use client'
-import React from 'react'
+
 import Container from './container'
 import Link from 'next/link'
-import { Button } from './button'
 import { ModeToggle } from "@/components/theme-changer";
 
 const Header = () => {
+
   return (
     <header>
       <Container>
@@ -15,9 +15,13 @@ const Header = () => {
               <h1 className="text-xl font-bold text-primary">TresEvents</h1>
             </Link>
           </div>
-          <div className="flex items-end space-x-4">
+          <div className="flex items-center justify-between space-x-4">
+            <Link href={""}>Events</Link>
+            <Link href={""}>Discover</Link>
+            <Link href={""}>My Tickets</Link>
+          </div>
+          <div className="flex items-center justify-center space-x-4">
             <ModeToggle />
-            {/* <Button className='dark:text-white rounded-2xl'>Join us</Button> */}
           </div>
         </div>
       </Container>
