@@ -14,10 +14,7 @@ const Hero = () => {
 
         <div className="mt-10 space-x-4">
           <Link href={"/signup"}>
-            <Button className='rounded-3xl dark:text-white'>Create account</Button>
-          </Link>
-          <Link href={"/events"}>
-            <Button className='rounded-3xl hover:bg-primary hover:text-white' variant={"outline"}>View Events</Button>
+            <Button size={"lg"} className='rounded-3xl dark:text-white'>Create account</Button>
           </Link>
         </div>
       </div>
