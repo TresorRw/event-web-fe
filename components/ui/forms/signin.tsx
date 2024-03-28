@@ -7,15 +7,29 @@ import { Input } from "../input"
 import { Button } from "../button"
 import { SigninSchema } from "@/schemas/user.schema";
 import { z } from "zod"
+import { BackendAPI } from "@/lib/constants"
+import { returnAxiosError } from "@/lib/Error"
+import { useRouter } from "next/navigation"
+import axios from "axios"
+import { toast } from "../use-toast"
 
 const SignInForm = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof SigninSchema>>({
     resolver: zodResolver(SigninSchema),
-
   })
 
-  const onSubmit = (values: z.infer<typeof SigninSchema>) => {
-    console.log(values)
+  const onSubmit = async (values: z.infer<typeof SigninSchema>) => {
+    try {
+      const response = await axios.post(BackendAPI + "/api/auth/signin", values);
+      toast({
+        title: response.data.message,
+      })
+      localStorage.setItem("userData", JSON.stringify(response.data));
+      router.push('/in/profile');
+    } catch (error) {
+      returnAxiosError(error);
+    }
   }
 
   return (
@@ -40,7 +54,7 @@ const SignInForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="Your secret" {...field} />
+                <Input type="password" placeholder="Your secret" {...field} />
               </FormControl>
             </FormItem>
           )}
