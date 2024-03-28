@@ -3,7 +3,7 @@ import { z } from "zod";
 export const SignupSchema = z.object({
   password: z.string().min(6),
   email: z.string().email(),
-  displayName: z.string().min(3),
+  displayName: z.string(),
   role: z.enum(["organizer", "attendee"])
 })
 
