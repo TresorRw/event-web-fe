@@ -10,7 +10,7 @@ export const returnAxiosError = (error: any) => {
         variant: "destructive"
       });
     } else {
-      if(error.response.data.errors) {
+      if (error.response.data.errors) {
         toast({
           title: error.response.data.message,
           description: error.response.data.errors.join("\n \n"),
