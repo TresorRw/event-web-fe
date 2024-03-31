@@ -8,18 +8,17 @@ import { usePathname } from 'next/navigation';
 
 const Header = () => {
   const pathName = usePathname();
-  console.log(pathName);
 
   return (
     <header className="border-b">
       <Container>
-        <div className="relative px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between w-full">
+        <div className="relative sm:px-6 lg:px-8 flex h-16 items-center justify-between w-full">
           <div className="flex items-center">
             <Link href="/" className='ml-4 lg:ml-0'>
               <h1 className="text-xl font-bold text-primary">TresEvents</h1>
             </Link>
           </div>
-          <div className="flex items-center justify-between space-x-4">
+          <div className="flex items-center justify-between space-x-2 md:space-x-4">
             <Link className={classNames({
               'text-primary': pathName === '/events',
             })} href={"/events"}>Events</Link>
