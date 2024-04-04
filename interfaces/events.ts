@@ -25,6 +25,11 @@ export interface IGetGoodEventResponse {
   data: IEvent[],
 }
 
+export interface ISingleEventResponse {
+  statusCode: number,
+  message: string,
+  data?: IEvent
+}
 export interface IErrorResponse {
   statusCode: number,
   message: string
