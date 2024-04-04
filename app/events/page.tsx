@@ -19,11 +19,11 @@ const EventsPage = async () => {
   return (
     <Container>
       <div className="w-full pt-4 px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {!events && (
-              <ErrorAlert />
+            <ErrorAlert title="Error" variant="destructive" message="Refresh the page to try again" />
           )}
-          
+
           {events?.data.map((event) => (
             <EventCard
               endDateTime={event.endDateTime}
