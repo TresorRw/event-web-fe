@@ -6,13 +6,13 @@ import {
   AlertTitle,
 } from "@/components/ui/alert"
 
-function ErrorAlert() {
+function ErrorAlert({ title, message, variant }: { title: string, message: string, variant: "default" | "destructive" | null | undefined }) {
   return (
-    <Alert variant="default">
+    <Alert variant={variant} className="w-full md:w-1/2 lg:w-1/3">
       <ExclamationTriangleIcon className="h-4 w-4" />
-      <AlertTitle>Error</AlertTitle>
+      <AlertTitle>{title}</AlertTitle>
       <AlertDescription>
-        Something went wrong! Refresh the page to try again.
+        {message}
       </AlertDescription>
     </Alert>
   )
