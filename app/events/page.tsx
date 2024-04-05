@@ -26,17 +26,14 @@ const EventsPage = async () => {
 
           {events?.data.map((event) => (
             <EventCard
-              endDateTime={event.endDateTime}
               key={event._id}
               _id={event._id}
               price={event.price}
               startDateTime={event.startDateTime}
               name={event.name}
-              description={event.description}
               image=""
               organizer={event.organizer}
-              location={event.location}
-              category={event.category} />
+              location={event.location} />
           ))}
         </div>
       </div>
