@@ -32,7 +32,7 @@ const EventInfo = async ({ params }: { params: { id: string } }) => {
       <div className="w-full pt-4 px-4">
         <div className="flex flex-col md:flex-row lg:flex-row">
           <div className="w-full p-2 lg:w-3/4">
-            <h1 className="text-3xl font-semibold mb-2">{name}</h1>
+            <h1 className="text-2xl font-semibold mb-2">{name}</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
               <Image
                 className="rounded-md"
@@ -66,7 +66,7 @@ const EventInfo = async ({ params }: { params: { id: string } }) => {
                   <span className="font-semibold">Organized by: </span>
                   {organizer.displayName}
                 </p>
-                <Button className="text-light mt-5">Buy ticket now</Button>
+                <Button className="text-white mt-5">Buy ticket now</Button>
               </div>
             </div>
             <p className="mt-3 font-semibold">More about this event</p>
@@ -75,7 +75,7 @@ const EventInfo = async ({ params }: { params: { id: string } }) => {
               <h1 className="text-xl font-semibold">More like this</h1>
             </div>
           </div>
-          <div className="w-full p-2 md:w-1/3 lg:w-1/4">
+          <div className="w-full p-2 md:w-1/3 lg:w-1/4 md:border-l-2">
             <h4 className="text-xl mt-4 font-semibold">
               More about <span className="text-primary"> {organizer.displayName}</span>
             </h4>
