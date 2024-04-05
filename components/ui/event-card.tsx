@@ -1,10 +1,10 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./card"
-import { IEvent } from "@/interfaces/events";
+import { IEventCardProps } from "@/interfaces";
 import { Button } from "./button";
 
-const EventCard = ({ name, _id, image, location, organizer, startDateTime, price }: IEvent) => {
+const EventCard = ({ name, _id, image, location, organizer, startDateTime, price }: IEventCardProps) => {
   return (
     <Card className="w-full md:max-w-[360px] hover:scale-105 transition-all">
       <Link href={`/events/${_id}`}>
@@ -14,7 +14,7 @@ const EventCard = ({ name, _id, image, location, organizer, startDateTime, price
           height={200}
           className="rounded-xl"
           src={image ? image : "https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg"}
-          alt="b" />
+          alt={name} />
       </Link>
       <CardHeader>
         <Link href={`/events/${_id}`}>
