@@ -1,16 +1,19 @@
 import { EventCategories } from "@/lib/constants"
 
-export interface IEvent {
-  _id: string,
-  name: string,
+export interface IEvent extends IEventCardProps{
   category: EventCategories,
   description: string,
-  startDateTime: Date,
   endDateTime: Date,
-  location: string,
-  price: number,
-  image?: string,
+}
+
+export interface IEventCardProps {
+  _id: string,
+  name: string,
   organizer: IEventOrganizer,
+  startDateTime: Date,
+  location: string
+  price: string
+  image?: string
 }
 
 export interface IEventOrganizer {
