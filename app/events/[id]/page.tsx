@@ -26,8 +26,8 @@ const EventInfo = async ({ params }: { params: { id: string } }) => {
     <Container>
       <div className="w-full pt-4 px-4">
         <div className="flex flex-col md:flex-row lg:flex-row">
-          <div className="w-full p-2 lg:w-3/4 space-y-2">
-            <h1 className='text-3xl font-semibold'>{name}</h1>
+          <div className="w-full p-2 lg:w-3/4">
+            <h1 className='text-3xl font-semibold mb-2'>{name}</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
               <Image className='rounded-md' alt={`${name} event image`} width={450} height={300} src={image ?? "https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg"} />
               <div className='event-info text-slate-900 dark:text-slate-200'>
@@ -42,7 +42,7 @@ const EventInfo = async ({ params }: { params: { id: string } }) => {
             </div>
             <p className='mt-3 font-semibold'>More about this event</p>
             <p className='text-justify'>{description}</p>
-            <div className="related-events">
+            <div className="related-events mt-10">
               <h1 className="text-xl font-semibold">More like this</h1>
             </div>
           </div>
