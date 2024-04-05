@@ -27,9 +27,9 @@ const EventCard = ({ name, _id, image, location, organizer, startDateTime, price
       </CardHeader>
       <CardContent className="flex justify-between items-end">
         <div>
-          <p>Date: {new Date(startDateTime).toDateString()}</p>
-          <p>Time: {new Date(startDateTime).toLocaleTimeString()}</p>
-          <p>Location: {location}</p>
+          <p> <span className="font-semibold"> Date: </span> {new Date(startDateTime).toDateString()}</p>
+          <p> <span className="font-semibold"> Time: </span> {new Date(startDateTime).toLocaleTimeString()}</p>
+          <p> <span className="font-semibold"> Location: </span> {location}</p>
         </div>
         <Button>Book</Button>
       </CardContent>
