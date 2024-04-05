@@ -75,12 +75,12 @@ const EventInfo = async ({ params }: { params: { id: string } }) => {
               <h1 className="text-xl font-semibold">More like this</h1>
             </div>
           </div>
-          <div className="w-full p-2 md:w-1/3 lg:w-1/4 md:border-l-2">
+          <div className="w-full p-2 md:w-1/3 lg:w-1/4">
             <h4 className="text-xl mt-4 font-semibold">
               More about <span className="text-primary"> {organizer.displayName}</span>
             </h4>
             <Separator className="w-2/3" />
-            <p className="text-justify mt-4">
+            <p className="text-justify mt-4 text-sm">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem aut id dolorem error ullam nostrum,
               temporibus minus dolore molestias ex odit deserunt assumenda consequuntur eligendi accusamus itaque
               laudantium accusantium odio.
