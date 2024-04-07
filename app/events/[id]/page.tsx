@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import SkeletonCard from "@/components/ui/sketon-card";
 import { ISingleEventResponse } from "@/interfaces";
 import { BackendAPI, convertDate } from "@/lib";
+import AxiosCleint from "@/lib/axios-client";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Suspense } from "react";
@@ -14,8 +15,12 @@ const EventInfo = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
   let eventDetails: ISingleEventResponse;
 
-  const response = await fetch(`${BackendAPI}/api/events/${id}`, { cache: "no-cache" });
-  eventDetails = await response.json();
+  try {
+    const response = await AxiosCleint.get(`/events/${id}`);
+    eventDetails = response.data;
+  } catch (error) {
+    return error;
+  }
   if (!eventDetails.data) {
     return (
       <div className="flex w-full justify-center p-4">
