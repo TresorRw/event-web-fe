@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
 import ErrorAlert from "@/components/ui/error-alert";
+import EventCarousel from "@/components/ui/event-carousel";
 import { Separator } from "@/components/ui/separator";
+import SkeletonCard from "@/components/ui/sketon-card";
 import { ISingleEventResponse } from "@/interfaces";
 import { BackendAPI, convertDate } from "@/lib";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 
 const EventInfo = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
@@ -29,9 +31,9 @@ const EventInfo = async ({ params }: { params: { id: string } }) => {
     eventDetails.data;
   return (
     <Container>
-      <div className="w-full pt-4 px-4">
+      <div className="w-full py-4 px-4">
         <div className="flex flex-col md:flex-row lg:flex-row">
-          <div className="w-full p-2 lg:w-3/4">
+          <div className="w-full p-2 lg:w-3/4 pr-6">
             <h1 className="text-2xl font-semibold mb-2">{name}</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
               <Image
@@ -72,7 +74,10 @@ const EventInfo = async ({ params }: { params: { id: string } }) => {
             <p className="mt-3 font-semibold">More about this event</p>
             <p className="text-justify">{description}</p>
             <div className="related-events mt-10">
-              <h1 className="text-xl font-semibold">More like this</h1>
+              <h1 className="text-xl mb-2 font-semibold">More like this</h1>
+              <Suspense fallback={<SkeletonCard />}>
+                <EventCarousel category={category} />
+              </Suspense>
             </div>
           </div>
           <div className="w-full p-2 md:w-1/3 lg:w-1/4">
