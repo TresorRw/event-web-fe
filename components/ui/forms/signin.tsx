@@ -12,7 +12,8 @@ import { returnAxiosError } from "@/lib/Error"
 import { useRouter } from "next/navigation"
 import axios from "axios"
 import { toast } from "../use-toast"
-import { useAuthStore } from "@/app/store/auth.store"
+import { AuthStore, useAuthStore } from "@/app/store/auth.store"
+import { useStore } from "@/app/store/useStore"
 
 const SignInForm = () => {
   const saveUserData = useAuthStore(state => state.saveUserData);
@@ -28,7 +29,6 @@ const SignInForm = () => {
       toast({
         title: response.data.message,
       })
-      localStorage.setItem("userData", JSON.stringify(response.data));
       saveUserData(response.data.token, { name: response.data.data.name, role: response.data.data.role });
       router.push('/in/profile');
     } catch (error) {
