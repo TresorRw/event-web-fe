@@ -5,9 +5,12 @@ import Link from 'next/link'
 import { ModeToggle } from "@/components/theme-changer";
 import classNames from "classnames";
 import { usePathname } from 'next/navigation';
+import { Button } from "@/components/ui/button"
+import { useAuthStore } from '@/app/store/auth.store';
 
 const Header = () => {
   const pathName = usePathname();
+  const isAuthenticated = useAuthStore(state => state.isAuthenticated);
 
   return (
     <header className="border-b">
@@ -32,6 +35,17 @@ const Header = () => {
           </div>
           <div className="flex items-center justify-center space-x-4">
             <ModeToggle />
+            {isAuthenticated ?
+              <Link
+                className={classNames({
+                  'text-primary': pathName === '/in/profile',
+                })} href={"/in/profile"}>
+                <Button className='rounded-xl dark:text-white'>Profile</Button>
+              </Link> :
+              <Link href={"/signin"}>
+                <Button className='rounded-xl dark:text-white'>Login</Button>
+              </Link>
+            }
           </div>
         </div>
       </Container>
