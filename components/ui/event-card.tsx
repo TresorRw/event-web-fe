@@ -2,7 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./card"
 import { IEventCardProps } from "@/interfaces";
-import { Button } from "./button";
+import BuyTicketModal from "./book-ticket";
 
 const EventCard = ({ name, _id, image, location, organizer, startDateTime, price }: IEventCardProps) => {
   return (
@@ -31,7 +31,7 @@ const EventCard = ({ name, _id, image, location, organizer, startDateTime, price
           <p> <span className="font-semibold"> Time: </span> {new Date(startDateTime).toLocaleTimeString()}</p>
           <p> <span className="font-semibold"> Location: </span> {location}</p>
         </div>
-        <Button>Book</Button>
+        <BuyTicketModal id={_id} />
       </CardContent>
     </Card>
   )
