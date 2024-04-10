@@ -3,11 +3,11 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { IGetGoodEventResponse } from "@/interfaces";
 import EventCard from "./event-card";
 import ErrorAlert from "./error-alert";
-import AxiosCleint from "@/lib/axios-client";
+import { AxiosClient } from "@/lib";
 
 const getRelatedEventsBasedOnCategory = async (category: EventCategories) => {
   try {
-    const response = await AxiosCleint.get(`/events/search?cat=${category}`, { "axios-retry": { retries: 3 } });
+    const response = await AxiosClient.get(`/events/search?cat=${category}`, { "axios-retry": { retries: 3 } });
     const events: IGetGoodEventResponse = response.data;
     return events;
   } catch (error) {
