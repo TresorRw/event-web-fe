@@ -5,9 +5,10 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Input } from "../input";
 import { useSearchParams } from "next/navigation";
 import { AxiosClient, EventCategories, returnAxiosError } from "@/lib";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, Suspense, useEffect, useState } from "react";
 import { IGetGoodEventResponse } from "@/interfaces";
 import EventCard from "../event-card";
+import LoadingUI from "@/app/loading";
 
 const SearchContent = () => {
   const params = useSearchParams();
@@ -90,4 +91,13 @@ const SearchContent = () => {
   );
 };
 
-export default SearchContent;
+const searchWithSuspense = () => {
+  return (
+    <Suspense fallback={<LoadingUI />}>
+      <SearchContent />
+    </Suspense>
+  )
+}
+
+
+export default searchWithSuspense;
