@@ -9,11 +9,11 @@ import {
 import { Button } from "./button"
 import ConfirmTicketForm from "./confirm-ticket"
 
-const BuyTicketModal = ({ id }: { id: string }) => {
+const BuyTicketModal = ({ id, text }: { id: string, text: string }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Book</Button>
+        <Button className="text-white">{text}</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

@@ -1,3 +1,4 @@
+import BuyTicketModal from "@/components/ui/book-ticket";
 import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
 import ErrorAlert from "@/components/ui/error-alert";
@@ -68,11 +69,11 @@ const EventInfo = async ({ params }: { params: { id: string } }) => {
                   <span className="font-semibold">Price: </span>
                   {price} Frw
                 </p>
-                <p>
+                <p className="mb-5">
                   <span className="font-semibold">Organized by: </span>
                   {organizer.displayName}
                 </p>
-                <Button className="text-white mt-5">Buy ticket now</Button>
+                <BuyTicketModal id={_id} text="Buy ticket now" />
               </div>
             </div>
             <p className="mt-3 font-semibold">More about this event</p>

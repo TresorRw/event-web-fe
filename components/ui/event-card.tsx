@@ -31,7 +31,7 @@ const EventCard = ({ name, _id, image, location, organizer, startDateTime, price
           <p> <span className="font-semibold"> Time: </span> {new Date(startDateTime).toLocaleTimeString()}</p>
           <p> <span className="font-semibold"> Location: </span> {location}</p>
         </div>
-        <BuyTicketModal id={_id} />
+        <BuyTicketModal id={_id} text="Book"/>
       </CardContent>
     </Card>
   )
