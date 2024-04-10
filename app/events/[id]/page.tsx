@@ -5,8 +5,7 @@ import EventCarousel from "@/components/ui/event-carousel";
 import { Separator } from "@/components/ui/separator";
 import SkeletonCard from "@/components/ui/sketon-card";
 import { ISingleEventResponse } from "@/interfaces";
-import { BackendAPI, convertDate } from "@/lib";
-import AxiosCleint from "@/lib/axios-client";
+import { convertDate, AxiosClient } from "@/lib";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Suspense } from "react";
@@ -16,7 +15,7 @@ const EventInfo = async ({ params }: { params: { id: string } }) => {
   let eventDetails: ISingleEventResponse;
 
   try {
-    const response = await AxiosCleint.get(`/events/${id}`);
+    const response = await AxiosClient.get(`/events/${id}`);
     eventDetails = response.data;
   } catch (error) {
     return error;

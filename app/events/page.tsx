@@ -1,17 +1,17 @@
 import ErrorAlert from "@/components/ui/error-alert";
-import Container from "@/components/ui/container"
+import Container from "@/components/ui/container";
 import EventCard from "@/components/ui/event-card";
 import { IGetGoodEventResponse } from "@/interfaces";
-import AxiosCleint from "@/lib/axios-client";
+import { AxiosClient } from "@/lib";
 
 const getAllEvents = async () => {
   try {
-    const events = await AxiosCleint.get('/events');
+    const events = await AxiosClient.get("/events");
     return events.data as IGetGoodEventResponse;
   } catch (error) {
     return null;
   }
-}
+};
 
 const EventsPage = async () => {
   const events = await getAllEvents();
@@ -20,9 +20,7 @@ const EventsPage = async () => {
     <Container>
       <div className="w-full pt-4 px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {!events && (
-            <ErrorAlert title="Error" variant="destructive" message="Refresh the page to try again" />
-          )}
+          {!events && <ErrorAlert title="Error" variant="destructive" message="Refresh the page to try again" />}
 
           {events?.data.map((event) => (
             <EventCard
@@ -33,7 +31,8 @@ const EventsPage = async () => {
               name={event.name}
               image=""
               organizer={event.organizer}
-              location={event.location} />
+              location={event.location}
+            />
           ))}
         </div>
       </div>
@@ -41,4 +40,4 @@ const EventsPage = async () => {
   );
 };
 
-export default EventsPage
+export default EventsPage;
