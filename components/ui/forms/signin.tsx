@@ -12,8 +12,7 @@ import { returnAxiosError } from "@/lib/Error"
 import { useRouter } from "next/navigation"
 import axios from "axios"
 import { toast } from "../use-toast"
-import { AuthStore, useAuthStore } from "@/app/store/auth.store"
-import { useStore } from "@/app/store/useStore"
+import { useAuthStore } from "@/app/store/auth.store"
 
 const SignInForm = () => {
   const saveUserData = useAuthStore(state => state.saveUserData);

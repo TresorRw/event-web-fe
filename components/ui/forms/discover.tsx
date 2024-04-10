@@ -1,0 +1,93 @@
+"use client";
+
+import { Search } from "lucide-react";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Input } from "../input";
+import { useSearchParams } from "next/navigation";
+import { AxiosClient, EventCategories, returnAxiosError } from "@/lib";
+import { ChangeEvent, useEffect, useState } from "react";
+import { IGetGoodEventResponse } from "@/interfaces";
+import EventCard from "../event-card";
+
+const SearchContent = () => {
+  const params = useSearchParams();
+  const [query, setQuery] = useState(params.get("q") || "");
+  const [category, setCategory] = useState(params.get("cat") || "");
+  const [searchResults, setSearchResults] = useState<IGetGoodEventResponse>();
+
+  const handleCategoryClick = (newCategory: string) => {
+    const new_category = category == newCategory ? "" : newCategory;
+    setCategory(new_category);
+    window.history.pushState(null, "", `/discover?q=${query}&cat=${new_category}`);
+  };
+  const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+    window.history.pushState(null, "", `/discover?q=${event.target.value}&cat=${category}`);
+  };
+
+  useEffect(() => {
+    const search = async (category: string, query: string) => {
+      try {
+        const search_response = await AxiosClient.get(`/events/search?q=${query}&cat=${category}`);
+        const search_results: IGetGoodEventResponse = search_response.data;
+        setSearchResults(search_results);
+      } catch (error) {
+        return returnAxiosError(error);
+      }
+    };
+    search(category, query);
+  }, [category, query]);
+
+  return (
+    <div className="w-full flex flex-col items-center">
+      <div className="relative w-5/6 md:w-1/2 lg:w-3/5">
+        <Input
+          type="search"
+          value={query}
+          onChange={handleQueryChange}
+          placeholder="Search"
+          className="pl-5 py-5 rounded-3xl"
+        />
+        <Search className="absolute right-5 top-2.5 h-6 w-4 cursor-pointer" />
+      </div>
+
+      {category != "" && (
+        <p className="w-5/6 md:w-1/2 lg:w-3/5 text-right py-2">Category: {category.replaceAll("_", " & ")}</p>
+      )}
+      <ScrollArea className="w-5/6 md:w-1/2 lg:w-3/5">
+        <div className="flex w-max p-2">
+          {Object.values(EventCategories).map((category, i) => (
+            <p
+              className="hover:bg-slate-200 cursor-pointer dark:hover:bg-slate-900 p-2 rounded-md"
+              onClick={() => handleCategoryClick(category)}
+              key={i}
+            >
+              {category.replaceAll("_", " & ")}
+            </p>
+          ))}
+        </div>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-10 text-left">
+        {searchResults ? (
+          searchResults.data.map((event, i) => (
+            <EventCard
+              key={i}
+              _id={event._id}
+              name={event.name}
+              location={event.location}
+              price={event.price}
+              startDateTime={event.startDateTime}
+              organizer={event.organizer}
+              image=""
+            />
+          ))
+        ) : (
+          <h2>Type your search text and select category (Optional)</h2>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default SearchContent;
