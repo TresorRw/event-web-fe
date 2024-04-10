@@ -13,7 +13,7 @@ const BuyTicketModal = ({ id, text }: { id: string, text: string }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="text-white">{text}</Button>
+        <Button className="text-white w-full">{text}</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
