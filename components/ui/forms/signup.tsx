@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { BackendAPI } from "@/lib/constants";
 import { returnAxiosError } from "@/lib/Error";
 
