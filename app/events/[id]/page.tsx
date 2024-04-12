@@ -1,5 +1,4 @@
 import BuyTicketModal from "@/components/ui/book-ticket";
-import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
 import ErrorAlert from "@/components/ui/error-alert";
 import EventCarousel from "@/components/ui/event-carousel";
@@ -9,12 +8,16 @@ import { ISingleEventResponse } from "@/interfaces";
 import { convertDate, AxiosClient } from "@/lib";
 import Image from "next/image";
 import Link from "next/link";
-import React, { Suspense } from "react";
+import { Suspense } from "react";
+
+export const metadata = {
+  title: "Event Details",
+  description: "Empower Your Events: Seamlessly Plan, Manage, and Experience Every Moment",
+};
 
 const EventInfo = async ({ params }: { params: { id: string } }) => {
   const id = params.id;
   let eventDetails: ISingleEventResponse;
-
   try {
     const response = await AxiosClient.get(`/events/${id}`);
     eventDetails = response.data;
@@ -34,6 +37,8 @@ const EventInfo = async ({ params }: { params: { id: string } }) => {
   }
   const { _id, category, description, location, endDateTime, name, organizer, price, startDateTime, image } =
     eventDetails.data;
+  metadata.title = `${name} by ${organizer.displayName}`;
+
   return (
     <Container>
       <div className="w-full py-4 px-4">

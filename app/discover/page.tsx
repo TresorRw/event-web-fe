@@ -1,5 +1,11 @@
 import Container from "@/components/ui/container"
 import SearchContent from "@/components/ui/forms/discover"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Discover Your Next Event",
+  description: "Search, Explore, and Attend Exciting Gatherings Near You!",
+}
 
 const DiscoverPage = () => {
   return (

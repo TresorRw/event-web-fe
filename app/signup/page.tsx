@@ -10,6 +10,12 @@ import dynamic from 'next/dynamic'
 const SignUpForm = dynamic(() => import("@/components/ui/forms/signup"), { ssr: false })
 import { Separator } from "@/components/ui/separator"
 import Link from "next/link"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Create your fist account",
+  description: "Search, Explore, and Attend Exciting Gatherings Near You!",
+}
 
 const SignUp = () => {
   return (
