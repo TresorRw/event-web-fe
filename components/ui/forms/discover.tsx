@@ -16,14 +16,16 @@ const SearchContent = () => {
   const currentPage = parseInt(params.get("page") as string) || 1;
   const perPage = parseInt(params.get("perPage") as string) || 25;
   const query = params.get("q") || "";
-  const category = params.get("cat") || "";
+  const [category, setCategory] = useState(params.get("cat") || "");
   const [searchResults, setSearchResults] = useState<IGetGoodEventResponse>();
 
   const handleCategoryClick = (newCategory: string) => {
+    const new_category = category == newCategory ? "" : newCategory;
+    setCategory(new_category);
     window.history.pushState(
       null,
       "",
-      `/discover?q=${query}&cat=${newCategory}`,
+      `/discover?q=${query}&cat=${new_category}`,
     );
   };
   const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
