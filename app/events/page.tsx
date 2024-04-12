@@ -3,18 +3,21 @@ import Container from "@/components/ui/container";
 import EventCard from "@/components/ui/event-card";
 import { IGetGoodEventResponse } from "@/interfaces";
 import { AxiosClient } from "@/lib";
+import ApplyPagination from "@/components/ui/results-pagination";
+import Link from "next/link";
 
-const getAllEvents = async () => {
+const getAllEvents = async (perPage: number = 25, page: number = 1) => {
   try {
-    const events = await AxiosClient.get("/events");
+    const events = await AxiosClient.get(`/events?perPage=${perPage}&page=${page}`);
     return events.data as IGetGoodEventResponse;
   } catch (error) {
     return null;
   }
 };
 
-const EventsPage = async () => {
-  const events = await getAllEvents();
+const EventsPage = async ({ searchParams }: { searchParams: { perPage: number, page: number } }) => {
+  const { perPage, page } = searchParams;
+  const events = await getAllEvents(perPage, page);
 
   return (
     <Container>
@@ -34,6 +37,11 @@ const EventsPage = async () => {
               location={event.location}
             />
           ))}
+        </div>
+        <div className="w-full mt-5">
+          {events?.data &&
+            <ApplyPagination totalResults={events.totalResults} currentPage={page} perPage={perPage} />
+          }
         </div>
       </div>
     </Container>

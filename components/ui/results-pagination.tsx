@@ -10,7 +10,7 @@ import {
 
 const ApplyPagination = ({
   totalResults,
-  perPage = 16,
+  perPage = 25,
   currentPage = 1,
 }: {
   totalResults: number;
