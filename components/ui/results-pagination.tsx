@@ -12,7 +12,9 @@ const ApplyPagination = ({
   totalResults,
   perPage = 25,
   currentPage = 1,
+  url
 }: {
+  url: string
   totalResults: number;
   perPage: number;
   currentPage: number;
@@ -41,14 +43,14 @@ const ApplyPagination = ({
         <PaginationContent>
           {currentPage != 1 && (
             <PaginationItem>
-              <PaginationPrevious href={`/events?page=${previous}&perPage=${perPage}`} />
+              <PaginationPrevious href={`${url}&page=${previous}&perPage=${perPage}`} />
             </PaginationItem>
           )}
           {pages.map((page, i) => (
             <PaginationItem key={i}>
               <PaginationLink
                 className={currentPage == page ? "bg-primary" : ""}
-                href={`/events?page=${page}&perPage=${perPage}`}
+                href={`${url}&page=${page}&perPage=${perPage}`}
               >
                 {page}
               </PaginationLink>
@@ -57,7 +59,7 @@ const ApplyPagination = ({
           <PaginationItem>{totalPages > 5 && <PaginationEllipsis />}</PaginationItem>
           {currentPage != totalPages && (
             <PaginationItem>
-              <PaginationNext href={`/events?page=${previous + 2}&perPage=${perPage}`} />
+              <PaginationNext href={`${url}&page=${previous + 2}&perPage=${perPage}`} />
             </PaginationItem>
           )}
         </PaginationContent>

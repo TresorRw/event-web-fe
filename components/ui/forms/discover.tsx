@@ -9,27 +9,27 @@ import { ChangeEvent, Suspense, useEffect, useState } from "react";
 import { IGetGoodEventResponse } from "@/interfaces";
 import EventCard from "../event-card";
 import LoadingUI from "@/app/loading";
+import ApplyPagination from "../results-pagination";
 
 const SearchContent = () => {
   const params = useSearchParams();
-  const [query, setQuery] = useState(params.get("q") || "");
-  const [category, setCategory] = useState(params.get("cat") || "");
+  const currentPage = parseInt(params.get('page') as string) || 1;
+  const perPage = parseInt(params.get('perPage') as string) || 25;
+  const query = params.get("q") || "";
+  const category = params.get("cat") || "";
   const [searchResults, setSearchResults] = useState<IGetGoodEventResponse>();
 
   const handleCategoryClick = (newCategory: string) => {
-    const new_category = category == newCategory ? "" : newCategory;
-    setCategory(new_category);
-    window.history.pushState(null, "", `/discover?q=${query}&cat=${new_category}`);
+    window.history.pushState(null, "", `/discover?q=${query}&cat=${newCategory}`);
   };
   const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
     window.history.pushState(null, "", `/discover?q=${event.target.value}&cat=${category}`);
   };
 
   useEffect(() => {
     const search = async (category: string, query: string) => {
       try {
-        const search_response = await AxiosClient.get(`/events/search?q=${query}&cat=${category}`);
+        const search_response = await AxiosClient.get(`/events/search?q=${query}&cat=${category}&perPage=${perPage}&page=${currentPage}`);
         const search_results: IGetGoodEventResponse = search_response.data;
         setSearchResults(search_results);
       } catch (error) {
@@ -37,7 +37,7 @@ const SearchContent = () => {
       }
     };
     search(category, query);
-  }, [category, query]);
+  }, [category, query, perPage, currentPage]);
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -87,6 +87,7 @@ const SearchContent = () => {
           <h2>Type your search text and select category (Optional)</h2>
         )}
       </div>
+      <ApplyPagination url={`/discover?q=${query}&cat=${category}`} totalResults={searchResults?.totalResults || 0} perPage={perPage} currentPage={currentPage} />
     </div>
   );
 };

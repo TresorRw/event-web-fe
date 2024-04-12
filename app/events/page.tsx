@@ -40,7 +40,7 @@ const EventsPage = async ({ searchParams }: { searchParams: { perPage: number, p
         </div>
         <div className="w-full mt-5">
           {events?.data &&
-            <ApplyPagination totalResults={events.totalResults} currentPage={page} perPage={perPage} />
+            <ApplyPagination url={"/events?"} totalResults={events.totalResults} currentPage={page} perPage={perPage} />
           }
         </div>
       </div>
