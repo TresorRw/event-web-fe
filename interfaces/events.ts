@@ -25,6 +25,9 @@ export interface IEventOrganizer {
 export interface IGetGoodEventResponse {
   statusCode: number,
   message: string,
+  perPage: number,
+  totalResults: number,
+  page: number,
   data: IEvent[],
 }
 
