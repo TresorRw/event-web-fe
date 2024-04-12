@@ -7,6 +7,7 @@ import classNames from "classnames";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/app/store/auth.store";
+import MenuDrawer from "./header-drawer";
 
 const Header = () => {
   const pathName = usePathname();
@@ -15,7 +16,7 @@ const Header = () => {
   return (
     <header className="border-b">
       <Container>
-        <div className="relative sm:px-6 lg:px-8 flex h-16 items-center justify-between w-full">
+        <div className="relative md:flex sm:px-6 lg:px-8 hidden h-16 items-center justify-between w-full">
           <div className="flex items-center">
             <Link href="/" className="ml-4 lg:ml-0">
               <h1 className="text-xl font-bold text-primary">TresEvents</h1>
@@ -51,13 +52,26 @@ const Header = () => {
             <ModeToggle />
             {isAuthenticated ? (
               <Link href="/in/profile">
-                <Button className="rounded-xl dark:text-white">Profile</Button>
+                <Button className="rounded-xl dark:text-white mt-5">
+                  Profile
+                </Button>
               </Link>
             ) : (
               <Link href={"/signin"}>
-                <Button className="rounded-xl dark:text-white">Login</Button>
+                <Button className="rounded-xl dark:text-white mt-5">
+                  Login
+                </Button>
               </Link>
             )}
+          </div>
+        </div>
+        <div className="flex w-full items-center justify-between md:hidden p-4 py-2">
+          <Link href="/" className="">
+            <h1 className="text-xl font-bold text-primary">TresEvents</h1>
+          </Link>
+          <div className="space-x-2">
+            <ModeToggle />
+            <MenuDrawer pathName={pathName} isAuthenticated={isAuthenticated} />
           </div>
         </div>
       </Container>
