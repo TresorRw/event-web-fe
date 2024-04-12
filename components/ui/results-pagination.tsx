@@ -12,9 +12,9 @@ const ApplyPagination = ({
   totalResults,
   perPage = 25,
   currentPage = 1,
-  url
+  url,
 }: {
-  url: string
+  url: string;
   totalResults: number;
   perPage: number;
   currentPage: number;
@@ -37,13 +37,16 @@ const ApplyPagination = ({
   return (
     <>
       <p className="text-xs font-semibold">
-        Showing results of page {currentPage} of {totalPages} in total of {totalResults} records
+        Showing results of page {currentPage} of {totalPages} in total of{" "}
+        {totalResults} records
       </p>
       <Pagination>
         <PaginationContent>
           {currentPage != 1 && (
             <PaginationItem>
-              <PaginationPrevious href={`${url}&page=${previous}&perPage=${perPage}`} />
+              <PaginationPrevious
+                href={`${url}&page=${previous}&perPage=${perPage}`}
+              />
             </PaginationItem>
           )}
           {pages.map((page, i) => (
@@ -56,10 +59,14 @@ const ApplyPagination = ({
               </PaginationLink>
             </PaginationItem>
           ))}
-          <PaginationItem>{totalPages > 5 && <PaginationEllipsis />}</PaginationItem>
+          <PaginationItem>
+            {totalPages > 5 && <PaginationEllipsis />}
+          </PaginationItem>
           {currentPage != totalPages && (
             <PaginationItem>
-              <PaginationNext href={`${url}&page=${previous + 2}&perPage=${perPage}`} />
+              <PaginationNext
+                href={`${url}&page=${previous + 2}&perPage=${perPage}`}
+              />
             </PaginationItem>
           )}
         </PaginationContent>

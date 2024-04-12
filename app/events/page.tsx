@@ -4,18 +4,23 @@ import EventCard from "@/components/ui/event-card";
 import { IGetGoodEventResponse } from "@/interfaces";
 import { AxiosClient } from "@/lib";
 import ApplyPagination from "@/components/ui/results-pagination";
-import Link from "next/link";
 
 const getAllEvents = async (perPage: number = 25, page: number = 1) => {
   try {
-    const events = await AxiosClient.get(`/events?perPage=${perPage}&page=${page}`);
+    const events = await AxiosClient.get(
+      `/events?perPage=${perPage}&page=${page}`,
+    );
     return events.data as IGetGoodEventResponse;
   } catch (error) {
     return null;
   }
 };
 
-const EventsPage = async ({ searchParams }: { searchParams: { perPage: number, page: number } }) => {
+const EventsPage = async ({
+  searchParams,
+}: {
+  searchParams: { perPage: number; page: number };
+}) => {
   const { perPage, page } = searchParams;
   const events = await getAllEvents(perPage, page);
 
@@ -23,7 +28,13 @@ const EventsPage = async ({ searchParams }: { searchParams: { perPage: number, p
     <Container>
       <div className="w-full pt-4 px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {!events && <ErrorAlert title="Error" variant="destructive" message="Refresh the page to try again" />}
+          {!events && (
+            <ErrorAlert
+              title="Error"
+              variant="destructive"
+              message="Refresh the page to try again"
+            />
+          )}
 
           {events?.data.map((event) => (
             <EventCard
@@ -39,9 +50,14 @@ const EventsPage = async ({ searchParams }: { searchParams: { perPage: number, p
           ))}
         </div>
         <div className="w-full mt-5">
-          {events?.data &&
-            <ApplyPagination url={"/events?"} totalResults={events.totalResults} currentPage={page} perPage={perPage} />
-          }
+          {events?.data && (
+            <ApplyPagination
+              url={"/events?"}
+              totalResults={events.totalResults}
+              currentPage={page}
+              perPage={perPage}
+            />
+          )}
         </div>
       </div>
     </Container>

@@ -12,7 +12,8 @@ import { Suspense } from "react";
 
 export const metadata = {
   title: "Event Details",
-  description: "Empower Your Events: Seamlessly Plan, Manage, and Experience Every Moment",
+  description:
+    "Empower Your Events: Seamlessly Plan, Manage, and Experience Every Moment",
 };
 
 const EventInfo = async ({ params }: { params: { id: string } }) => {
@@ -35,8 +36,18 @@ const EventInfo = async ({ params }: { params: { id: string } }) => {
       </div>
     );
   }
-  const { _id, category, description, location, endDateTime, name, organizer, price, startDateTime, image } =
-    eventDetails.data;
+  const {
+    _id,
+    category,
+    description,
+    location,
+    endDateTime,
+    name,
+    organizer,
+    price,
+    startDateTime,
+    image,
+  } = eventDetails.data;
   metadata.title = `${name} by ${organizer.displayName}`;
 
   return (
@@ -51,7 +62,10 @@ const EventInfo = async ({ params }: { params: { id: string } }) => {
                 alt={`${name} event image`}
                 width={450}
                 height={300}
-                src={image ?? "https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg"}
+                src={
+                  image ??
+                  "https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg"
+                }
               />
               <div className="event-info text-slate-900 dark:text-slate-200">
                 <p>
@@ -92,12 +106,14 @@ const EventInfo = async ({ params }: { params: { id: string } }) => {
           </div>
           <div className="w-full p-2 md:w-1/3 lg:w-1/4">
             <h4 className="text-xl mt-4 font-semibold">
-              More about <span className="text-primary"> {organizer.displayName}</span>
+              More about{" "}
+              <span className="text-primary"> {organizer.displayName}</span>
             </h4>
             <Separator className="w-2/3" />
             <p className="text-justify mt-4 text-sm">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem aut id dolorem error ullam nostrum,
-              temporibus minus dolore molestias ex odit deserunt assumenda consequuntur eligendi accusamus itaque
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem aut
+              id dolorem error ullam nostrum, temporibus minus dolore molestias
+              ex odit deserunt assumenda consequuntur eligendi accusamus itaque
               laudantium accusantium odio.
             </p>
           </div>

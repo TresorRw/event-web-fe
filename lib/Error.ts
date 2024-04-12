@@ -7,19 +7,19 @@ export const returnAxiosError = (error: any) => {
       toast({
         title: "Internet Connection Problem",
         description: "Try again later after fixing the problem",
-        variant: "destructive"
+        variant: "destructive",
       });
     } else {
       if (error.response.data.errors) {
         toast({
           title: error.response.data.message,
           description: error.response.data.errors.join("\n \n"),
-        })
+        });
       } else {
         toast({
           title: error.response.data.message,
-        })
+        });
       }
     }
   }
-}
+};

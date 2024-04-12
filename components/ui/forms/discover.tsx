@@ -13,23 +13,33 @@ import ApplyPagination from "../results-pagination";
 
 const SearchContent = () => {
   const params = useSearchParams();
-  const currentPage = parseInt(params.get('page') as string) || 1;
-  const perPage = parseInt(params.get('perPage') as string) || 25;
+  const currentPage = parseInt(params.get("page") as string) || 1;
+  const perPage = parseInt(params.get("perPage") as string) || 25;
   const query = params.get("q") || "";
   const category = params.get("cat") || "";
   const [searchResults, setSearchResults] = useState<IGetGoodEventResponse>();
 
   const handleCategoryClick = (newCategory: string) => {
-    window.history.pushState(null, "", `/discover?q=${query}&cat=${newCategory}`);
+    window.history.pushState(
+      null,
+      "",
+      `/discover?q=${query}&cat=${newCategory}`,
+    );
   };
   const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
-    window.history.pushState(null, "", `/discover?q=${event.target.value}&cat=${category}`);
+    window.history.pushState(
+      null,
+      "",
+      `/discover?q=${event.target.value}&cat=${category}`,
+    );
   };
 
   useEffect(() => {
     const search = async (category: string, query: string) => {
       try {
-        const search_response = await AxiosClient.get(`/events/search?q=${query}&cat=${category}&perPage=${perPage}&page=${currentPage}`);
+        const search_response = await AxiosClient.get(
+          `/events/search?q=${query}&cat=${category}&perPage=${perPage}&page=${currentPage}`,
+        );
         const search_results: IGetGoodEventResponse = search_response.data;
         setSearchResults(search_results);
       } catch (error) {
@@ -53,7 +63,9 @@ const SearchContent = () => {
       </div>
 
       {category != "" && (
-        <p className="w-5/6 md:w-1/2 lg:w-3/5 text-right py-2">Category: {category.replaceAll("_", " & ")}</p>
+        <p className="w-5/6 md:w-1/2 lg:w-3/5 text-right py-2">
+          Category: {category.replaceAll("_", " & ")}
+        </p>
       )}
       <ScrollArea className="w-5/6 md:w-1/2 lg:w-3/5">
         <div className="flex w-max p-2">
@@ -87,7 +99,12 @@ const SearchContent = () => {
           <h2>Type your search text and select category (Optional)</h2>
         )}
       </div>
-      <ApplyPagination url={`/discover?q=${query}&cat=${category}`} totalResults={searchResults?.totalResults || 0} perPage={perPage} currentPage={currentPage} />
+      <ApplyPagination
+        url={`/discover?q=${query}&cat=${category}`}
+        totalResults={searchResults?.totalResults || 0}
+        perPage={perPage}
+        currentPage={currentPage}
+      />
     </div>
   );
 };
@@ -97,8 +114,7 @@ const searchWithSuspense = () => {
     <Suspense fallback={<LoadingUI />}>
       <SearchContent />
     </Suspense>
-  )
-}
-
+  );
+};
 
 export default searchWithSuspense;

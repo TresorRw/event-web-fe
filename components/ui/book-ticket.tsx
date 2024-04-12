@@ -5,11 +5,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Button } from "./button"
-import ConfirmTicketForm from "./confirm-ticket"
+} from "@/components/ui/dialog";
+import { Button } from "./button";
+import ConfirmTicketForm from "./confirm-ticket";
 
-const BuyTicketModal = ({ id, text }: { id: string, text: string }) => {
+const BuyTicketModal = ({ id, text }: { id: string; text: string }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -24,8 +24,7 @@ const BuyTicketModal = ({ id, text }: { id: string, text: string }) => {
         </DialogHeader>
       </DialogContent>
     </Dialog>
+  );
+};
 
-  )
-}
-
-export default BuyTicketModal
+export default BuyTicketModal;

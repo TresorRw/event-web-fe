@@ -5,17 +5,19 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import dynamic from 'next/dynamic'
-const SignInForm = dynamic(() => import("@/components/ui/forms/signin"), { ssr: false })
-import { Separator } from "@/components/ui/separator"
-import Link from "next/link"
-import { type Metadata } from "next"
+} from "@/components/ui/card";
+import dynamic from "next/dynamic";
+const SignInForm = dynamic(() => import("@/components/ui/forms/signin"), {
+  ssr: false,
+});
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import { type Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Sign into your account",
   description: "Search, Explore, and Attend Exciting Gatherings Near You!",
-}
+};
 
 const SignIn = () => {
   return (
@@ -30,11 +32,16 @@ const SignIn = () => {
           <SignInForm />
         </CardContent>
         <CardFooter>
-          <p>No account yet? <Link className="text-primary" href={"/signup"}>Create one here</Link> </p>
+          <p>
+            No account yet?{" "}
+            <Link className="text-primary" href={"/signup"}>
+              Create one here
+            </Link>{" "}
+          </p>
         </CardFooter>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default SignIn
+export default SignIn;

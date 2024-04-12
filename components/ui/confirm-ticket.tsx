@@ -2,19 +2,29 @@
 
 import { useAuthStore } from "@/app/store/auth.store";
 import { useStore } from "zustand";
-import { FormField, FormItem, FormLabel, FormControl, FormDescription } from "./form"
-import { Input } from "./input"
-import { Button } from "./button"
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+} from "./form";
+import { Input } from "./input";
+import { Button } from "./button";
 import LoginRequired from "./login-required";
-import { useToast } from "@/components/ui/use-toast"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, FormProvider } from "react-hook-form"
-import { TicketSchema } from "@/schemas/ticket.schema"
-import { z } from "zod"
+import { useToast } from "@/components/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, FormProvider } from "react-hook-form";
+import { TicketSchema } from "@/schemas/ticket.schema";
+import { z } from "zod";
 import { AxiosClient, returnAxiosError } from "@/lib";
 
 const ConfirmTicketForm = ({ id }: { id: string }) => {
-  const { isAuthenticated, loggedInUser: { name }, authToken } = useStore(useAuthStore, (state) => state);
+  const {
+    isAuthenticated,
+    loggedInUser: { name },
+    authToken,
+  } = useStore(useAuthStore, (state) => state);
 
   const { toast } = useToast();
   const form = useForm<z.infer<typeof TicketSchema>>({
@@ -23,13 +33,12 @@ const ConfirmTicketForm = ({ id }: { id: string }) => {
       contactName: name,
       contactNumber: "",
       eventId: id,
-    }
-  })
+    },
+  });
 
   if (!isAuthenticated) {
-    return <LoginRequired />
+    return <LoginRequired />;
   }
-
 
   const onSubmit = async (values: z.infer<typeof TicketSchema>) => {
     try {
@@ -41,11 +50,11 @@ const ConfirmTicketForm = ({ id }: { id: string }) => {
       toast({
         title: "Ticket is confirmed!",
         description: response.data.message,
-      })
+      });
     } catch (error) {
       returnAxiosError(error);
     }
-  }
+  };
 
   return (
     <FormProvider {...form}>
@@ -72,7 +81,9 @@ const ConfirmTicketForm = ({ id }: { id: string }) => {
               <FormControl>
                 <Input type="text" placeholder="Your phone number" {...field} />
               </FormControl>
-              <FormDescription>Add country code before phone number</FormDescription>
+              <FormDescription>
+                Add country code before phone number
+              </FormDescription>
             </FormItem>
           )}
         />
@@ -87,10 +98,12 @@ const ConfirmTicketForm = ({ id }: { id: string }) => {
             </FormItem>
           )}
         />
-        <Button className="mt-4 w-full dark:text-white" type="submit">Confirm</Button>
+        <Button className="mt-4 w-full dark:text-white" type="submit">
+          Confirm
+        </Button>
       </form>
     </FormProvider>
-  )
+  );
 };
 
 export default ConfirmTicketForm;

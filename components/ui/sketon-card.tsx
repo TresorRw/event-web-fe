@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const SkeletonCard = () => {
   return (
@@ -43,6 +43,6 @@ export const SkeletonCard = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 export default SkeletonCard;
