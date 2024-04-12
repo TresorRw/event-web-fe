@@ -59,11 +59,11 @@ const MenuDrawer = ({
           </Link>
           {isAuthenticated ? (
             <Link href="/in/profile">
-              <Button className="rounded-xl dark:text-white">Profile</Button>
+              <Button className="rounded dark:text-white mt-5">Profile</Button>
             </Link>
           ) : (
             <Link href={"/signin"}>
-              <Button className="rounded-xl dark:text-white">Login</Button>
+              <Button className="rounded dark:text-white mt-5">Login</Button>
             </Link>
           )}
         </div>
