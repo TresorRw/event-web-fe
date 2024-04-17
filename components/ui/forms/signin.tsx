@@ -35,7 +35,7 @@ const SignInForm = () => {
         name: response.data.data.name,
         role: response.data.data.role,
       });
-      router.push("/in/profile");
+      router.push("/profile");
     } catch (error) {
       returnAxiosError(error);
     }

@@ -39,19 +39,30 @@ const Header = () => {
             >
               Discover
             </Link>
-            <Link
-              className={classNames({
-                "text-primary": pathName === "/contact",
-              })}
-              href={"/contact"}
-            >
-              Contact
-            </Link>
+            {isAuthenticated ? (
+              <Link
+                className={classNames({
+                  "text-primary": pathName === "/my-tickets",
+                })}
+                href={"/my-tickets"}
+              >
+                My Tickets
+              </Link>
+            ) : (
+              <Link
+                className={classNames({
+                  "text-primary": pathName === "/contact",
+                })}
+                href={"/contact"}
+              >
+                Contact
+              </Link>
+            )}
           </div>
           <div className="flex items-center justify-center space-x-4">
             <ModeToggle />
             {isAuthenticated ? (
-              <Link href="/in/profile">
+              <Link href="/profile">
                 <Button className="rounded-xl dark:text-white">Profile</Button>
               </Link>
             ) : (

@@ -58,7 +58,7 @@ const MenuDrawer = ({
             Contact
           </Link>
           {isAuthenticated ? (
-            <Link href="/in/profile">
+            <Link href="/profile">
               <Button className="rounded dark:text-white mt-5">Profile</Button>
             </Link>
           ) : (
