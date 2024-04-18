@@ -9,9 +9,12 @@ export interface ITicket {
   contactName: string;
   contactNumber: string;
   ticketToken: string;
-  event: {
-    name: string;
-    price: number;
-  };
+  createdAt: Date;
+  event: ITicketEvent;
   paymentStatus: "pending" | "paid" | "cancelled";
+}
+
+export interface ITicketEvent {
+  name: string;
+  price: number;
 }
