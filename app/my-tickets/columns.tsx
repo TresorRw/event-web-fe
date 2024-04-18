@@ -2,6 +2,9 @@
 import { ITicket } from "@/interfaces";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableRowActions } from "./data-row-actions";
+import { Button } from "@/components/ui/button";
+import { ArrowUpDown } from "lucide-react";
+import { convertDate } from "@/lib";
 
 const columns = (): ColumnDef<ITicket>[] => [
   {
@@ -25,6 +28,23 @@ const columns = (): ColumnDef<ITicket>[] => [
     },
   },
   { accessorKey: "paymentStatus", header: "Payment Status" },
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Date
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell(props) {
+      return convertDate(props.row.original.createdAt);
+    },
+  },
   {
     id: "Actions",
     header: "Actions",
