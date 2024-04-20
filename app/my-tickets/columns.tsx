@@ -1,10 +1,10 @@
 "use client";
 import { ITicket } from "@/interfaces";
 import { ColumnDef } from "@tanstack/react-table";
-import { DataTableRowActions } from "./data-row-actions";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import { convertDate } from "@/lib";
+import { DeleteTicketConfirm } from "./delete-ticket";
 
 const columns = (): ColumnDef<ITicket>[] => [
   {
@@ -48,7 +48,7 @@ const columns = (): ColumnDef<ITicket>[] => [
   {
     id: "Actions",
     header: "Actions",
-    cell: ({ row }) => <DataTableRowActions id={row.original._id} />,
+    cell: ({ row }) => <DeleteTicketConfirm id={row.original._id} />,
   },
 ];
 
