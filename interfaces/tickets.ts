@@ -1,3 +1,5 @@
+import { IEvent } from "./events";
+
 export interface ITicketResponse {
   statusCode: number;
   message: string;
@@ -17,4 +19,15 @@ export interface ITicket {
 export interface ITicketEvent {
   name: string;
   price: number;
+}
+
+export interface ITicketEventDetails extends IEvent {}
+
+export interface ITicketDetails extends ITicket {
+  event: ITicketEventDetails;
+}
+export interface ITicketDetailsResponse {
+  statusCode: number;
+  message: string;
+  data: ITicket;
 }

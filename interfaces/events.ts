@@ -12,7 +12,7 @@ export interface IEventCardProps {
   organizer: IEventOrganizer;
   startDateTime: Date;
   location: string;
-  price: string;
+  price: number;
   image?: string;
 }
 
