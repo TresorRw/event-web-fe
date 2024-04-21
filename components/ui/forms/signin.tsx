@@ -4,17 +4,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
 import { FormField, FormItem, FormLabel, FormControl } from "../form";
 import { Input } from "../input";
-import { Button } from "../button";
 import { SigninSchema } from "@/schemas/user.schema";
 import { z } from "zod";
-import { BackendAPI } from "@/lib/constants";
 import { returnAxiosError } from "@/lib/Error";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 import { toast } from "../use-toast";
 import { useAuthStore } from "@/app/store/auth.store";
+import { AxiosClient } from "@/lib";
+import { useState } from "react";
+import SubmitButton from "../submit-button";
 
 const SignInForm = () => {
+  const [loading, setLoading] = useState(false);
   const saveUserData = useAuthStore((state) => state.saveUserData);
 
   const router = useRouter();
@@ -23,11 +24,9 @@ const SignInForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof SigninSchema>) => {
+    setLoading(true);
     try {
-      const response = await axios.post(
-        BackendAPI + "/api/auth/signin",
-        values,
-      );
+      const response = await AxiosClient.post("/auth/signin", values);
       toast({
         title: response.data.message,
       });
@@ -39,6 +38,7 @@ const SignInForm = () => {
     } catch (error) {
       returnAxiosError(error);
     }
+    setLoading(false);
   };
 
   return (
@@ -68,9 +68,11 @@ const SignInForm = () => {
             </FormItem>
           )}
         />
-        <Button className="mt-4 w-full dark:text-white" type="submit">
-          Submit
-        </Button>
+        <SubmitButton
+          loading={loading}
+          loadingText="Signing you in..."
+          text="Sign in"
+        />
       </form>
     </FormProvider>
   );
