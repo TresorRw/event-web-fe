@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
 import { FormField, FormItem, FormLabel, FormControl } from "../form";
 import { Input } from "../input";
-import { Button } from "../button";
 import { SignupSchema } from "@/schemas/user.schema";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
@@ -16,23 +15,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import axios from "axios";
-import { BackendAPI } from "@/lib/constants";
 import { returnAxiosError } from "@/lib/Error";
+import { AxiosClient } from "@/lib";
+import { useState } from "react";
+import SubmitButton from "../submit-button";
 
 const SignUpForm = () => {
   const router = useRouter();
   const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof SignupSchema>>({
     resolver: zodResolver(SignupSchema),
   });
 
   const onSubmit = async (values: z.infer<typeof SignupSchema>) => {
+    setLoading(true);
     try {
-      const response = await axios.post(
-        BackendAPI + "/api/auth/signup",
-        values,
-      );
+      const response = await AxiosClient.post("/auth/signup", values);
       toast({
         title: "Account Created",
         description: response.data.message,
@@ -41,6 +40,7 @@ const SignUpForm = () => {
     } catch (error) {
       returnAxiosError(error);
     }
+    setLoading(false);
   };
 
   return (
@@ -104,9 +104,11 @@ const SignUpForm = () => {
             </FormItem>
           )}
         />
-        <Button className="mt-4 w-full dark:text-white" type="submit">
-          Submit
-        </Button>
+        <SubmitButton
+          loading={loading}
+          loadingText="Processing..."
+          text="Create account"
+        />
       </form>
     </FormProvider>
   );
