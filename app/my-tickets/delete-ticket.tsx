@@ -1,3 +1,5 @@
+"use client";
+
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -9,13 +11,44 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { AxiosClient, returnAxiosError } from "@/lib";
+import { useState } from "react";
+import { useAuthStore } from "../store/auth.store";
+import { useStore } from "../store/useStore";
+import { toast } from "@/components/ui/use-toast";
 
 export function DeleteTicketConfirm({ id }: { id: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const authToken = useStore(useAuthStore, (state) => state.authToken);
+
+  const deleteTicket = async () => {
+    setLoading(true);
+    if (authToken) {
+      try {
+        const response = await AxiosClient.delete(`/tickets/${id}/cancel`, {
+          headers: { Authorization: `Bearer ${authToken}` },
+        });
+        toast({
+          title: "Success",
+          description: response.data.message,
+        });
+        window.location.reload();
+      } catch (error) {
+        setLoading(false);
+        return returnAxiosError(error);
+      }
+    }
+  };
+
   return (
-    <AlertDialog>
+    <AlertDialog open={isOpen}>
       <AlertDialogTrigger asChild>
         <Button
           variant="ghost"
+          onClick={() => {
+            setIsOpen(true);
+          }}
           size={"sm"}
           className="bg-red-700 hover:bg-red-900 text-white"
         >
@@ -28,16 +61,21 @@ export function DeleteTicketConfirm({ id }: { id: string }) {
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete your
             ticket!
-            {id}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel onClick={() => setIsOpen(false)}>
+            Cancel
+          </AlertDialogCancel>
           <Button
-            onClick={() => console.log("clicked")}
+            onClick={() => {
+              deleteTicket();
+            }}
+            disabled={loading}
+            aria-disabled={loading}
             className="bg-red-700 hover:bg-red-900 text-white"
           >
-            Yes, delete
+            {loading ? "Deleting..." : "Yes, delete"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

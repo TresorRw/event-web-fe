@@ -14,6 +14,10 @@ import { Suspense } from "react";
 import LoadingUI from "../loading";
 import Link from "next/link";
 
+export const metadata = {
+  title: "My Tickets",
+};
+
 const AttendeeTicketsPage = () => {
   return (
     <Container>
