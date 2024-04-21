@@ -8,7 +8,8 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "./button";
 import Link from "next/link";
-import classNames from "classnames";
+import { AccountSettings } from "./account-menu";
+import HeaderLinks from "./header-links";
 
 const MenuDrawer = ({
   pathName,
@@ -33,34 +34,9 @@ const MenuDrawer = ({
           </SheetTitle>
         </SheetHeader>
         <div className="mt-5 space-y-2 flex flex-col">
-          <Link
-            className={classNames({
-              "text-primary": pathName === "/events",
-            })}
-            href={"/events"}
-          >
-            Events
-          </Link>
-          <Link
-            className={classNames({
-              "text-primary": pathName === "/discover",
-            })}
-            href={"/discover"}
-          >
-            Discover
-          </Link>
-          <Link
-            className={classNames({
-              "text-primary": pathName === "/contact",
-            })}
-            href={"/contact"}
-          >
-            Contact
-          </Link>
+          <HeaderLinks isAuthenticated={isAuthenticated} pathName={pathName} />
           {isAuthenticated ? (
-            <Link href="/profile">
-              <Button className="rounded dark:text-white mt-5">Profile</Button>
-            </Link>
+            <AccountSettings />
           ) : (
             <Link href={"/signin"}>
               <Button className="rounded dark:text-white mt-5">Login</Button>

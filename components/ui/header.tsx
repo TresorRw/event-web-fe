@@ -3,11 +3,12 @@
 import Container from "./container";
 import Link from "next/link";
 import { ModeToggle } from "@/components/theme-changer";
-import classNames from "classnames";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/app/store/auth.store";
 import MenuDrawer from "./header-drawer";
+import { AccountSettings } from "./account-menu";
+import HeaderLinks from "./header-links";
 
 const Header = () => {
   const pathName = usePathname();
@@ -23,48 +24,15 @@ const Header = () => {
             </Link>
           </div>
           <div className="flex items-center justify-between space-x-2 md:space-x-4">
-            <Link
-              className={classNames({
-                "text-primary": pathName === "/events",
-              })}
-              href={"/events"}
-            >
-              Events
-            </Link>
-            <Link
-              className={classNames({
-                "text-primary": pathName === "/discover",
-              })}
-              href={"/discover"}
-            >
-              Discover
-            </Link>
-            {isAuthenticated ? (
-              <Link
-                className={classNames({
-                  "text-primary": pathName === "/my-tickets",
-                })}
-                href={"/my-tickets"}
-              >
-                My Tickets
-              </Link>
-            ) : (
-              <Link
-                className={classNames({
-                  "text-primary": pathName === "/contact",
-                })}
-                href={"/contact"}
-              >
-                Contact
-              </Link>
-            )}
+            <HeaderLinks
+              isAuthenticated={isAuthenticated}
+              pathName={pathName}
+            />
           </div>
           <div className="flex items-center justify-center space-x-4">
             <ModeToggle />
             {isAuthenticated ? (
-              <Link href="/profile">
-                <Button className="rounded-xl dark:text-white">Profile</Button>
-              </Link>
+              <AccountSettings />
             ) : (
               <Link href={"/signin"}>
                 <Button className="rounded-xl dark:text-white">Login</Button>
