@@ -12,3 +12,14 @@ export enum EventCategories {
   FOOD_DRINKS = "food_drinks",
   PERFORMANCE = "performance",
 }
+
+export const headerLinks = [
+  {
+    name: "Events",
+    href: "/events",
+  },
+  {
+    name: "Discover",
+    href: "/discover",
+  },
+];
