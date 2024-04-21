@@ -17,8 +17,10 @@ const BuyTicketModal = ({ id, text }: { id: string; text: string }) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Confirm event ticket</DialogTitle>
-          <DialogDescription className="mt-10" asChild>
+          <DialogTitle className="mb-5 border-b pb-3">
+            Confirm event ticket
+          </DialogTitle>
+          <DialogDescription asChild>
             <ConfirmTicketForm id={id} />
           </DialogDescription>
         </DialogHeader>

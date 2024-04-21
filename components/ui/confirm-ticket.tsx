@@ -18,6 +18,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { TicketSchema } from "@/schemas/ticket.schema";
 import { z } from "zod";
 import { AxiosClient, returnAxiosError } from "@/lib";
+import { useState } from "react";
 
 const ConfirmTicketForm = ({ id }: { id: string }) => {
   const {
@@ -25,6 +26,7 @@ const ConfirmTicketForm = ({ id }: { id: string }) => {
     loggedInUser: { name },
     authToken,
   } = useStore(useAuthStore, (state) => state);
+  const [loading, setLoading] = useState(false);
 
   const { toast } = useToast();
   const form = useForm<z.infer<typeof TicketSchema>>({
@@ -41,6 +43,7 @@ const ConfirmTicketForm = ({ id }: { id: string }) => {
   }
 
   const onSubmit = async (values: z.infer<typeof TicketSchema>) => {
+    setLoading(true);
     try {
       const response = await AxiosClient.post("/tickets/buy", values, {
         headers: {
@@ -48,12 +51,13 @@ const ConfirmTicketForm = ({ id }: { id: string }) => {
         },
       });
       toast({
-        title: "Ticket is confirmed!",
+        title: "Success!",
         description: response.data.message,
       });
     } catch (error) {
       returnAxiosError(error);
     }
+    setLoading(false);
   };
 
   return (
@@ -98,8 +102,13 @@ const ConfirmTicketForm = ({ id }: { id: string }) => {
             </FormItem>
           )}
         />
-        <Button className="mt-4 w-full dark:text-white" type="submit">
-          Confirm
+        <Button
+          className="mt-4 w-full dark:text-white"
+          type="submit"
+          disabled={loading}
+          aria-disabled={loading}
+        >
+          {loading ? "Confirming..." : "Confirm"}
         </Button>
       </form>
     </FormProvider>
