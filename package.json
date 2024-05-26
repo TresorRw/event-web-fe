@@ -27,7 +27,7 @@
     "@tanstack/react-table": "^8.17.3",
     "@vercel/speed-insights": "^1.0.10",
     "axios": "^1.7.1",
-    "axios-retry": "^4.1.0",
+    "axios-retry": "^4.3.0",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
